@@ -21,12 +21,8 @@ def handle_user_request():
 
 @app.route('/user/entries', methods=["GET", "POST", "PUT", "DELETE"])
 def handle_user_entries_request():
-    if (request.method == "GET"):
-        return userService.get_users()
-    elif (request.method == "POST"):
-        return userService.add_user(request)
-    elif (request.method == "PUT"):
-        return userService.edit_user(request)
+    return render_template('entries.html')
+
 
 
 # @app.route('/edit/<int:id>', methods=['GET', 'POST'])
