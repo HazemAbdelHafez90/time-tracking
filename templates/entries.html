@@ -40,6 +40,34 @@
         <button type="submit">Submit</button>
       </form>
     </div>
+    <br />
+    <div class="container">
+      <h1>Entries</h1>
+      <table id="entriesTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td contenteditable="false">{{ user.username }}</td>
+            <td contenteditable="true">{{ user.name }}</td>
+            <td>
+              <button class="user-update-row-btn">Save Changes</button>
+              <button class="user-delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="userAddRowBtn">New User</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
   </body>
 </html>

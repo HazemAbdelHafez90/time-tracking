@@ -16,6 +16,7 @@
       <h1>Select user</h1>
       <div class="dropdown">
         <select id="dropdownList" onchange="handleSelection(this)">
+          <option value="">Select user</option>
           {% for user in users %}
           <option value="{{ user.username }}">{{ user.name }}</option>
           {% endfor %}

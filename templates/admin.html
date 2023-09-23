@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Editable Table</title>
+    <title>Admin</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -12,8 +12,8 @@
   </head>
   <body>
     <div class="container">
-      <h1>Editable Table</h1>
-      <table id="editableTable" class="editable-table">
+      <h1>Users</h1>
+      <table id="usersTable" class="editable-table">
         <thead>
           <tr>
             <th>Username</th>
@@ -27,14 +27,39 @@
             <td contenteditable="false">{{ user.username }}</td>
             <td contenteditable="true">{{ user.name }}</td>
             <td>
-              <button class="update-row-btn">Update</button>
-              <button class="delete-row-btn">Delete</button>
+              <button class="user-update-row-btn">Save Changes</button>
+              <button class="user-delete-row-btn">Delete</button>
             </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      <button id="addRowBtn">Add Row</button>
+      <button id="userAddRowBtn">New User</button>
+    </div>
+    <div class="container">
+      <h1>Projects</h1>
+      <table id="projectsTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for proj in projects %}
+          <tr>
+            <td contenteditable="false">{{ proj.name }}</td>
+            <td contenteditable="true">{{ proj.desc }}</td>
+            <td>
+              <button class="project-update-row-btn">Save Changes</button>
+              <button class="project-delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="projectAddRowBtn">New Project</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ url_for('static', filename='admin.js') }}"></script>
