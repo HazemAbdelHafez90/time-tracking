@@ -1,8 +1,9 @@
 import sqlite3
 from flask import render_template, redirect, url_for, request, flash
 from app.models.User import User
+from app.models.Entry import Entry
 import json
-
+import time
 
 class UserService:
 
@@ -58,24 +59,25 @@ class UserService:
     def get_user_etntries(self,username):
         conn = sqlite3.connect('my_database.db')
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM user_entries where username =?',(username,))
+        cursor.execute('SELECT * FROM user_entries where user_name =?',(username,))
         rows = cursor.fetchall()
-        users = []
+        entries = []
         for row in rows:
-            username, name = row
-            user = User(username, name)
-            users.append(user)
+            id, project_name,user_name,time, creation_timestamp = row
+            entry = Entry(id,user_name,project_name,time, creation_timestamp)
+            entries.append(entry)
         cursor.close()
         conn.close()
-        return users
+        return entries
 
-    def add_user_entry(self, request):
+    def add_user_entry(self, selected_user,request):
         data = json.loads(request.data)
-        name = data['name']
-        username = data['username']
+        name = data['project']
+        time = data['time']
+        date = data['date']
         conn = sqlite3.connect('my_database.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO users (name, username) VALUES (?, ?)', (name, username))
+        cursor.execute('INSERT INTO user_entries (project_name, user_name , time,entry_date) VALUES (?,?,?,?)', (name, selected_user,time,date))
         conn.commit()
         cursor.close()
         conn.close()
@@ -94,11 +96,11 @@ class UserService:
         flash('user edited successfully!', 'success')
     
     def delete_user_entry(self, request):
-        username = json.loads(request.data)['username']
+        id = json.loads(request.data)['id']
         conn = sqlite3.connect('my_database.db')
         cursor = conn.cursor()
-        cursor.execute('delete from users where username = ?', (username,))
+        cursor.execute('delete from user_entries where entry_id = ?', (id,))
         conn.commit()
         cursor.close()
         conn.close()
-        flash('user deleted successfully!', 'success')
+        flash('entry deleted successfully!', 'success')

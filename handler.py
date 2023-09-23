@@ -15,10 +15,7 @@ projects =[]
 
 @app.route('/users', methods=["GET", "POST","PUT","DELETE"])
 def handle_user_request():
-    if (request.method == "GET"):
-        users= userService.get_users()
-        return render_template('index.html',users=users)
-    elif (request.method == "POST"):
+    if (request.method == "POST"):
         userService.add_user(request)
         return "User added successfully"
     elif (request.method == "PUT"):
@@ -26,6 +23,16 @@ def handle_user_request():
     elif (request.method == "DELETE"):
         userService.delete_user(request)
         return "User deleted successfully"
+    
+@app.route('/', methods=["GET"])
+def handle_home_request():
+    selected_user = request.cookies.get('selectedUser')
+    if(selected_user):
+        return handle_user_entries_request(selected_user)
+    else:
+        users= userService.get_users()
+        return render_template('index.html',users=users)
+
 
 
 @app.route('/admin')
@@ -34,10 +41,21 @@ def handle_admin_request():
     projects=projectService.get_projects()
     return render_template('admin.html', users=users , projects=projects)
     
-@app.route('/user/entries', methods=["GET", "POST", "PUT", "DELETE"])
-def handle_user_entries_request():
-    return render_template('entries.html')
-   
+def handle_user_entries_request(username):
+    projects=projectService.get_projects()
+    entries=userService.get_user_etntries(username)
+    return render_template('entries.html',entries = entries , projects=projects)
+
+@app.route('/user/entries/',methods=["POST","PUT","DELETE"])
+def handle_update_user_entries_request():
+    if (request.method == "POST"):
+        selected_user = request.cookies.get('selectedUser')
+        userService.add_user_entry(selected_user,request)
+        return "User Entry is added successfully"
+    elif(request.method=='DELETE'):
+        userService.delete_user_entry(request)
+        return "User Entry is Deleted successfully"
+
 
 @app.route('/projects', methods=["POST","PUT","DELETE"])
 def handle_projects_request():

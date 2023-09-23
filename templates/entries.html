@@ -13,61 +13,56 @@
   <body>
     <div class="container">
       <h1>Time Tracking</h1>
-      <form action="/submit_time" method="POST">
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required />
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required />
+      <br />
+      <label for="project">Project:</label>
+      <select id="project" name="project" required>
+        <option value="project1">Select Project</option>
+        {% for project in projects %}
+        <option value="{{ project.name }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label for="time">Time (hours):</label>
+      <input type="number" id="time" name="time" step="0.25" min="0" required />
+      <div id="convertedTime" class="converted-time">00:00</div>
+      <br />
+      <label for="comments">Comments:</label>
+      <textarea id="comments" name="comments" rows="4" cols="34"></textarea>
 
-        <label for="project">Project:</label>
-        <select id="project" name="project" required>
-          <option value="project1">Project 1</option>
-          <option value="project2">Project 2</option>
-          <option value="project3">Project 3</option>
-        </select>
-
-        <label for="time">Time (hours):</label>
-        <input
-          type="number"
-          id="time"
-          name="time"
-          step="0.25"
-          min="0"
-          required
-        />
-        <div id="convertedTime" class="converted-time">00:00</div>
-        <label for="comments">Comments:</label>
-        <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
-
-        <button type="submit">Submit</button>
-      </form>
+      <button id="entryAddRowBtn">Submit</button>
     </div>
     <br />
-    <div class="container">
+    <div class="entriesContainer">
       <h1>Entries</h1>
       <table id="entriesTable" class="editable-table">
         <thead>
           <tr>
-            <th>Username</th>
-            <th>Name</th>
+            <th>Id</th>
+            <th>Project Name</th>
+            <th>Time</th>
+            <th>Entry Date</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {% for user in users %}
+          {% for entry in entries %}
           <tr>
-            <td contenteditable="false">{{ user.username }}</td>
-            <td contenteditable="true">{{ user.name }}</td>
+            <td contenteditable="true">{{ entry.id }}</td>
+            <td contenteditable="true">{{ entry.project_name }}</td>
+            <td contenteditable="true">{{ entry.time }}</td>
+            <td contenteditable="false">{{ entry.entry_date }}</td>
             <td>
-              <button class="user-update-row-btn">Save Changes</button>
-              <button class="user-delete-row-btn">Delete</button>
+              <button class="entry-update-row-btn">Save Changes</button>
+              <button class="entry-delete-row-btn">Delete</button>
             </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      <button id="userAddRowBtn">New User</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='admin.js') }}"></script>
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='entry.js') }}"></script>
   </body>
 </html>

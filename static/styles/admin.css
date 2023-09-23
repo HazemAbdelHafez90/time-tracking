@@ -45,30 +45,19 @@ h1 {
 }
 
 /* Buttons for actions */
+
 button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #007bff;
-  margin-right: 10px;
-}
-
-.delete-row-btn {
-  color: #ff5733;
-}
-
-/* Plus button for adding a record */
-button#addUserBtn,
-button#addProjectBtn {
   background-color: #007bff;
   color: #fff;
   border: none;
   cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 4px;
-  margin-top: 20px;
-  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.project-delete-row-btn,
+.user-delete-row-btn {
+  color: #fff;
+  background-color: red;
 }
 
 button#addUserBtn:hover,
@@ -81,4 +70,16 @@ button#addProjectBtn:hover {
 .fa-edit,
 .fa-trash-alt {
   font-size: 18px;
+}
+
+input[type="date"],
+select,
+input[type="number"],
+textarea,
+button {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
