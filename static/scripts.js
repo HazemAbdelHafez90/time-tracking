@@ -32,3 +32,6 @@ function handleSelection(selectElement) {
     //         console.error('Error:', error);
     //     });
 }
+
+
+

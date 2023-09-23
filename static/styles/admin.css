@@ -1,0 +1,84 @@
+/* Reset some default styles for cross-browser consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.editable-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.editable-table th,
+.editable-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.editable-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Buttons for actions */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #007bff;
+  margin-right: 10px;
+}
+
+.delete-row-btn {
+  color: #ff5733;
+}
+
+/* Plus button for adding a record */
+button#addUserBtn,
+button#addProjectBtn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+button#addUserBtn:hover,
+button#addProjectBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Font Awesome icons */
+.fa-plus,
+.fa-edit,
+.fa-trash-alt {
+  font-size: 18px;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editable Table</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/admin.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Editable Table</h1>
+      <table id="editableTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td contenteditable="false">{{ user.username }}</td>
+            <td contenteditable="true">{{ user.name }}</td>
+            <td>
+              <button class="update-row-btn">Update</button>
+              <button class="delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="addRowBtn">Add Row</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+  </body>
+</html>
