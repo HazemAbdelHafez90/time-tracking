@@ -39,7 +39,8 @@ def handle_home_request():
 def handle_admin_request():
     users= userService.get_users()
     projects=projectService.get_projects()
-    return render_template('admin.html', users=users , projects=projects)
+    users_entries=userService.get_all_users_etntries()
+    return render_template('admin.html', users=users , projects=projects,users_entries=users_entries)
     
 def handle_user_entries_request(username):
     projects=projectService.get_projects()

@@ -108,3 +108,17 @@ class UserService:
         cursor.close()
         conn.close()
         flash('entry deleted successfully!', 'success')
+
+    def get_all_users_etntries(self):
+        conn = sqlite3.connect('my_database.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM user_entries')
+        rows = cursor.fetchall()
+        entries = []
+        for row in rows:
+            id, project_name,user_name,time, entry_date ,comments= row
+            entry = Entry(id,user_name,project_name,time, entry_date,comments)
+            entries.append(entry)
+        cursor.close()
+        conn.close()
+        return entries

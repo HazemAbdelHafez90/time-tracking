@@ -5,6 +5,9 @@ $(document).ready(function() {
       $('#projectsTable').DataTable({
         searching: true, // Enable searching/filtering
       });
+      $('#entriesTable').DataTable({
+        searching: true, // Enable searching/filtering
+      });
     const usersTable = document.getElementById('usersTable');
     const userAddRowBtn = document.getElementById('userAddRowBtn');
     const projectsTable = document.getElementById('projectsTable');

@@ -65,6 +65,32 @@
       </table>
       <button id="projectAddRowBtn">New Project</button>
     </div>
+
+    <div class="container">
+      <h1>Entries</h1>
+      <table id="entriesTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Project Name</th>
+            <th>Time</th>
+            <th>Entry Date</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in users_entries %}
+          <tr>
+            <td contenteditable="false">{{ entry.id }}</td>
+            <td contenteditable="false">{{ entry.project_name }}</td>
+            <td contenteditable="false">{{ entry.time }}</td>
+            <td contenteditable="false">{{ entry.entry_date }}</td>
+            <td contenteditable="false">{{ entry.comments }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="{{ url_for('static', filename='admin.js') }}"></script>
