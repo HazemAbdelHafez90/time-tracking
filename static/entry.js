@@ -17,7 +17,10 @@ timeInput.addEventListener('input', () => {
     const formattedTime = formatTime(enteredHours);
     convertedTimeOutput.textContent = formattedTime;
 });
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function() {
+    $('#entriesTable').DataTable({
+        searching: true, // Enable searching/filtering
+      });
     const entriesTable = document.getElementById('entriesTable');
     const entryAddRowBtn = document.getElementById('entryAddRowBtn');
     
@@ -137,4 +140,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
 
+        function calculateSum(columnIndex) {
+            let sum = 0;
+            $('#entriesTable tbody tr').each(function() {
+              const cellText = $(this).find('td').eq(columnIndex).text();
+              const cellValue = parseFloat(cellText);
+              if (!isNaN(cellValue)) {
+                sum += cellValue;
+              }
+            });
+            return sum;
+          }
+        
+          // Add a row with sums at the end of the table
+          const $sumRow = $('<tr>').addClass('sum-row');
+          const sum = calculateSum(2);
+          $sumRow.append($('<td>').text("Total"));
+          $sumRow.append($('<td>').text(""));
+          $sumRow.append($('<td>').text(sum));
+          $sumRow.append($('<td>').text(""));
+          $('#entriesTable tbody').append($sumRow);
+
+ 
 });

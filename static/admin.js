@@ -1,4 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function() {
+    $('#usersTable').DataTable({
+        searching: true, // Enable searching/filtering
+      });
+      $('#projectsTable').DataTable({
+        searching: true, // Enable searching/filtering
+      });
     const usersTable = document.getElementById('usersTable');
     const userAddRowBtn = document.getElementById('userAddRowBtn');
     const projectsTable = document.getElementById('projectsTable');

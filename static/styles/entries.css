@@ -81,6 +81,10 @@ button:hover {
   background-color: #0056b3;
 }
 
+.entry-delete-row-btn:hover {
+  background-color: #b30021;
+}
+
 .editable-table {
   width: 100%;
   border-collapse: collapse;
