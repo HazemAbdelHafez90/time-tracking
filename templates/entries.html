@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Time Tracking App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/entries.css') }}"
+    />
+    <!-- Include your CSS file -->
+  </head>
+  <body>
+    <div class="container">
+      <h1>Time Tracking</h1>
+      <label for="date">Date:</label>
+      <input
+        type="date"
+        id="date"
+        name="date"
+        required
+        format="Month dd, yyyy"
+      />
+      <br />
+      <label for="project">Project:</label>
+      <select id="project" name="project" required>
+        <option value="">Select Project</option>
+        {% for project in projects %}
+        <option value="{{ project.name }}">{{ project.name }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <label for="time">Time (hours):</label>
+      <input type="number" id="time" name="time" step="0.25" min="0" required />
+      <div id="convertedTime" class="converted-time">00:00</div>
+      <br />
+      <label for="comments">Comment:</label>
+      <textarea id="comments" name="comments" rows="4" cols="34"></textarea>
+
+      <button id="entryAddRowBtn">Submit</button>
+    </div>
+    <br />
+    <div class="entriesContainer">
+      <h1>Entries</h1>
+      <table id="entriesTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Project Name</th>
+            <th>Time</th>
+            <th>Entry Date</th>
+            <th>Comments</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in entries %}
+          <tr>
+            <td contenteditable="false">{{ entry.id }}</td>
+            <td contenteditable="true">{{ entry.project_name }}</td>
+            <td contenteditable="true">{{ entry.time }}</td>
+            <td contenteditable="true">
+              <input type="date" class="date" value="{{ entry.entry_date }}" />
+            </td>
+            <td contenteditable="true">{{ entry.comments }}</td>
+
+            <td>
+              <button class="entry-update-row-btn">Save Changes</button>
+              <button class="entry-delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="{{ url_for('static', filename='entry.js') }}"></script>
+  </body>
+</html>

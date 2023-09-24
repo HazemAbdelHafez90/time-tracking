@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/admin.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Users</h1>
+      <table id="usersTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td contenteditable="false">{{ user.username }}</td>
+            <td contenteditable="true">{{ user.name }}</td>
+            <td>
+              <button class="user-update-row-btn">Save Changes</button>
+              <button class="user-delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="userAddRowBtn">New User</button>
+    </div>
+    <div class="container">
+      <h1>Projects</h1>
+      <table id="projectsTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for proj in projects %}
+          <tr>
+            <td contenteditable="false">{{ proj.name }}</td>
+            <td contenteditable="true">{{ proj.desc }}</td>
+            <td>
+              <button class="project-update-row-btn">Save Changes</button>
+              <button class="project-delete-row-btn">Delete</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button id="projectAddRowBtn">New Project</button>
+    </div>
+
+    <div class="container">
+      <h1>Entries</h1>
+      <table id="entriesTable" class="editable-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>User</th>
+            <th>Project Name</th>
+            <th>Time</th>
+            <th>Entry Date</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in users_entries %}
+          <tr>
+            <td contenteditable="false">{{ entry.id }}</td>
+            <td contenteditable="false">{{ entry.username }}</td>
+            <td contenteditable="false">{{ entry.project_name }}</td>
+            <td contenteditable="false">{{ entry.time }}</td>
+            <td contenteditable="false">{{ entry.entry_date }}</td>
+            <td contenteditable="false">{{ entry.comments }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+  </body>
+</html>
