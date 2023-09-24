@@ -12,12 +12,16 @@ function formatTime(hours) {
 }
 
 // Update the converted time output when the input changes
-timeInput.addEventListener('input', () => {
+timeInput.addEventListener('blur', () => {
     const enteredHours = parseFloat(timeInput.value) || 0;
     const formattedTime = formatTime(enteredHours);
     convertedTimeOutput.textContent = formattedTime;
 });
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
+    const today = new Date();
+    const formattedDate = today.toISOString().slice(0, 10);
+    document.getElementById("date").value = formattedDate;
+
     $('#entriesTable').DataTable({
         searching: true, // Enable searching/filtering
       });
@@ -120,25 +124,7 @@ $(document).ready(function() {
         });
     }
 
-        // Function to update a table row
-    function addEntry(row) {
-          
-    
-            // Send an AJAX request to the Flask route to update the row
-            $.ajax({
-                url: `/users`,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(updatedData),
-                success: function(response) {
-                    alert(response)
-                    window.location.href = '/';
-                },
-                error: function(error) {
-                    console.error(error);
-                }
-            });
-        }
+
 
 
         function calculateSum(columnIndex) {
@@ -164,6 +150,18 @@ $(document).ready(function() {
           $sumRow.append($('<td>').text(""));
 
           $('#entriesTable tbody').append($sumRow);
+         
+          const projectsDropdown = document.getElementById("project");
+          const selectedOption = Cookies.get("lastSelectedProject");
 
+          // Set the selected option based on the stored value
+          if (selectedOption) {
+            projectsDropdown.value = selectedOption;
+          }
+          projectsDropdown.addEventListener("change", function() {
+            const selectedOption = projectsDropdown.value;
+            // Store the selected option in a cookie
+            Cookies.set("lastSelectedProject", selectedOption,); // Expires in 365 days
+        });
  
 });
