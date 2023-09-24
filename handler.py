@@ -52,6 +52,9 @@ def handle_update_user_entries_request():
         selected_user = request.cookies.get('selectedUser')
         userService.add_user_entry(selected_user,request)
         return "User Entry is added successfully"
+    elif(request.method=='PUT'):
+        userService.edit_user_entry(request)
+        return "User Entry is updated successfully"
     elif(request.method=='DELETE'):
         userService.delete_user_entry(request)
         return "User Entry is Deleted successfully"

@@ -48,6 +48,7 @@
             <th>Project Name</th>
             <th>Time</th>
             <th>Entry Date</th>
+            <th>Comments</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -57,7 +58,11 @@
             <td contenteditable="true">{{ entry.id }}</td>
             <td contenteditable="true">{{ entry.project_name }}</td>
             <td contenteditable="true">{{ entry.time }}</td>
-            <td contenteditable="false">{{ entry.entry_date }}</td>
+            <td contenteditable="true">
+              <input type="date" class="date" value="{{ entry.entry_date }}" />
+            </td>
+            <td contenteditable="true">{{ entry.comments }}</td>
+
             <td>
               <button class="entry-update-row-btn">Save Changes</button>
               <button class="entry-delete-row-btn">Delete</button>

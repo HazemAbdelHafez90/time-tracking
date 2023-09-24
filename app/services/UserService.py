@@ -63,8 +63,8 @@ class UserService:
         rows = cursor.fetchall()
         entries = []
         for row in rows:
-            id, project_name,user_name,time, creation_timestamp = row
-            entry = Entry(id,user_name,project_name,time, creation_timestamp)
+            id, project_name,user_name,time, entry_date ,comments= row
+            entry = Entry(id,user_name,project_name,time, entry_date,comments)
             entries.append(entry)
         cursor.close()
         conn.close()
@@ -72,12 +72,13 @@ class UserService:
 
     def add_user_entry(self, selected_user,request):
         data = json.loads(request.data)
-        name = data['project']
+        project = data['project']
         time = data['time']
         date = data['date']
+        comments = data['comments']
         conn = sqlite3.connect('my_database.db')
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO user_entries (project_name, user_name , time,entry_date) VALUES (?,?,?,?)', (name, selected_user,time,date))
+        cursor.execute('INSERT INTO user_entries (project_name, user_name , time,entry_date,comments) VALUES (?,?,?,?,?)', (project, selected_user,time,date,comments))
         conn.commit()
         cursor.close()
         conn.close()
@@ -85,15 +86,18 @@ class UserService:
 
     def edit_user_entry(self, request):
         data = json.loads(request.data)
-        name = data['name']
-        username = data['username']
+        project = data['project']
+        time = data['time']
+        date = data['date']
+        comments = data['comments']
+        id = data['id']
         conn = sqlite3.connect('my_database.db')
         cursor = conn.cursor()
-        cursor.execute('UPDATE users SET  name = ? WHERE username = ?', (name,username))
+        cursor.execute('UPDATE user_entries SET  project_name=? ,time=?,entry_date=?,comments=?  WHERE entry_id = ?', (project,time,date,comments,id))
         conn.commit()
         cursor.close()
         conn.close()
-        flash('user edited successfully!', 'success')
+        flash('user entry edited successfully!', 'success')
     
     def delete_user_entry(self, request):
         id = json.loads(request.data)['id']

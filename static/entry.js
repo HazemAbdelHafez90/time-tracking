@@ -30,14 +30,10 @@ $(document).ready(function() {
         const parentRow = target.parentElement.parentElement;
         
         if (target.classList.contains('entry-update-row-btn')) {
-            updateUserTableRow(parentRow)
+            updateEntriesTableRow(parentRow)
         } else if (target.classList.contains('entry-delete-row-btn')) {
             // Delete the row
             deleteEntryTableRow(parentRow);
-        }
-        else if (target.classList.contains('entry-add-row-btn')) {
-            // Delete the row
-            addUserTableRow(parentRow);
         }
     });
 
@@ -96,16 +92,21 @@ $(document).ready(function() {
     }
 
     // Function to update a table row
-    function updateUserTableRow(row) {
+    function updateEntriesTableRow(row) {
+  
         const cells = row.cells;
         const updatedData = {
-            name: cells[1].textContent,
-            username: cells[0].textContent
+            id: cells[0].textContent,
+            project: cells[1].textContent,
+            time: cells[2].textContent,
+            date: cells[3].children[0].value,
+            comments: cells[4].textContent,
+
         };
 
         // Send an AJAX request to the Flask route to update the row
         $.ajax({
-            url: `/users`,
+            url: `/user/entries`,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify(updatedData),
@@ -159,6 +160,9 @@ $(document).ready(function() {
           $sumRow.append($('<td>').text(""));
           $sumRow.append($('<td>').text(sum));
           $sumRow.append($('<td>').text(""));
+          $sumRow.append($('<td>').text(""));
+          $sumRow.append($('<td>').text(""));
+
           $('#entriesTable tbody').append($sumRow);
 
  
