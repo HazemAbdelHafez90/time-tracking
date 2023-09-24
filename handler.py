@@ -41,7 +41,8 @@ def handle_admin_request():
     projects=projectService.get_projects()
     users_entries=userService.get_all_users_etntries()
     return render_template('admin.html', users=users , projects=projects,users_entries=users_entries)
-    
+ 
+@app.route('/user/entries/<username>',methods=["GET"])   
 def handle_user_entries_request(username):
     projects=projectService.get_projects()
     entries=userService.get_user_etntries(username)

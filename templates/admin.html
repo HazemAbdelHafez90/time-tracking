@@ -72,6 +72,7 @@
         <thead>
           <tr>
             <th>Id</th>
+            <th>User</th>
             <th>Project Name</th>
             <th>Time</th>
             <th>Entry Date</th>
@@ -82,6 +83,7 @@
           {% for entry in users_entries %}
           <tr>
             <td contenteditable="false">{{ entry.id }}</td>
+            <td contenteditable="false">{{ entry.username }}</td>
             <td contenteditable="false">{{ entry.project_name }}</td>
             <td contenteditable="false">{{ entry.time }}</td>
             <td contenteditable="false">{{ entry.entry_date }}</td>

@@ -77,8 +77,8 @@ $(document).ready(function() {
             username: cells[0].textContent
         };
 
-        // Send an AJAX request to the Flask route to update the row
-        $.ajax({
+        if(validateNewProjectOrUser(updatedData.name)){
+            $.ajax({
             url: `/users`,
             type: 'PUT',
             contentType: 'application/json',
@@ -92,6 +92,7 @@ $(document).ready(function() {
             }
         });
     }
+    }
 
         // Function to update a table row
     function addUserTableRow(row) {
@@ -100,8 +101,8 @@ $(document).ready(function() {
                 name: cells[1].textContent,
                 username: cells[0].textContent
             };
-    
-            // Send an AJAX request to the Flask route to update the row
+            if(validateNewProjectOrUser(updatedData.name)){
+
             $.ajax({
                 url: `/users`,
                 type: 'POST',
@@ -115,6 +116,7 @@ $(document).ready(function() {
                     console.error(error);
                 }
             });
+        }
         }
 
 
@@ -157,7 +159,7 @@ $(document).ready(function() {
             name: cells[0].textContent,
             desc: cells[1].textContent
         };
-        // Send an AJAX request to the Flask route to delete the row
+     
         $.ajax({
             url: `/projects`,
             type: 'DELETE',
@@ -182,7 +184,8 @@ $(document).ready(function() {
             desc: cells[1].textContent
         };
 
-        // Send an AJAX request to the Flask route to update the row
+
+        if(validateNewProjectOrUser(updatedData.name)){
         $.ajax({
             url: `/projects`,
             type: 'PUT',
@@ -197,6 +200,7 @@ $(document).ready(function() {
             }
         });
     }
+    }
 
         // Function to update a table row
     function addProjectTableRow(row) {
@@ -205,6 +209,8 @@ $(document).ready(function() {
                 name: cells[0].textContent,
                 desc: cells[1].textContent
             };
+
+            if(validateNewProjectOrUser(updatedData.name)){
     
             // Send an AJAX request to the Flask route to update the row
             $.ajax({
@@ -221,4 +227,15 @@ $(document).ready(function() {
                 }
             });
         }
+        }
+
+
+        function validateNewProjectOrUser(name) {
+            if (name === undefined || name.trim() === "" ) {
+                alert('name is required')
+                return false; 
+            }
+            return true
+        }
+            
 });

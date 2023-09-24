@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const project = document.getElementById('project').value;
         const convertedTime = document.getElementById('convertedTime').innerText;
         const comments = document.getElementById('comments').value;
-
+        if(validateNewEntry(date,project,convertedTime)){
         const updatedData = {
             date: date,
             project:project,
@@ -69,7 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error(error);
             }
         });
-
+     }
+   
     })
 
 
@@ -108,6 +109,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         };
 
+        if(validateNewEntry(updatedData.date,updatedData.project, updatedData.convertedTime))        
+        {
         // Send an AJAX request to the Flask route to update the row
         $.ajax({
             url: `/user/entries`,
@@ -122,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error(error);
             }
         });
+    }
     }
 
 
@@ -154,14 +158,31 @@ document.addEventListener("DOMContentLoaded", function() {
           const projectsDropdown = document.getElementById("project");
           const selectedOption = Cookies.get("lastSelectedProject");
 
-          // Set the selected option based on the stored value
           if (selectedOption) {
             projectsDropdown.value = selectedOption;
           }
           projectsDropdown.addEventListener("change", function() {
             const selectedOption = projectsDropdown.value;
-            // Store the selected option in a cookie
-            Cookies.set("lastSelectedProject", selectedOption,); // Expires in 365 days
+            Cookies.set("lastSelectedProject", selectedOption,); 
         });
+
+
+        function validateNewEntry(date ,project,convertedTime) {
+            if (date.trim() === "" ) {
+                alert('date is required')
+                return false; 
+            }  
+            if (project.trim() =="") {
+                alert('project is required')
+                return false; 
+            }
+            if (convertedTime === undefined || convertedTime.trim() === "" ||convertedTime.trim()==="00:00") {
+                alert('time is required')
+                return false; 
+            }
+            
+
+            return true; // Form is valid
+        }
  
 });
